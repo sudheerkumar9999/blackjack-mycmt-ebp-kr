@@ -6,10 +6,16 @@ public class Player {
     private double totalAmountBet = 0;
 
     public void playerDeposits(int amount) {
+        if(amount <= 0){
+            throw new UnsupportedOperationException("Deposit Amount should be greater than 0");
+        }
         playerBalance += amount;
     }
 
     public void playerBets(int betAmount) {
+        if(playerBalance < betAmount){
+            throw new UnsupportedOperationException("Bet Amount cannot be greater than Balance Amount");
+        }
         playerBet = betAmount;
         playerBalance -= betAmount;
         totalAmountBet += betAmount;

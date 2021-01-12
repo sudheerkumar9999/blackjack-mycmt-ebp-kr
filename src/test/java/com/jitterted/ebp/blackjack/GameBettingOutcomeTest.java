@@ -61,6 +61,22 @@ public class GameBettingOutcomeTest {
   }
 
   @Test
+  public void playerBetsForWithAnAmountGreaterThanBalanceShouldThrowException() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    assertThatThrownBy(() -> {
+      game.getPlayer().playerBets(30);
+    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount cannot be greater than Balance Amount");
+  }
+
+  @Test
+  public void playerDepositsAnAmountOfZeroShouldThrowError() throws Exception {
+    Game game = new Game();
+    assertThatThrownBy(() -> {
+      game.getPlayer().playerDeposits(0);
+    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Deposit Amount should be greater than 0");
+  }
+
+  @Test
   public void getTheTotalBetAmountForAPlayerUponBettingForMultipleGames() throws Exception {
     double calculatedTotalBet;
     double actualTotalBet = 576;
@@ -86,6 +102,24 @@ public class GameBettingOutcomeTest {
   }
 
   @Test
+  public void getTheTotalBetAmountForAPlayerUponForMultipleBets() throws Exception {
+
+    //Create Multiple Games and place the bet for each
+    Game game1 = createGameWithPlayerBalanceOf(200);
+    game1.getPlayer().playerBets(55);
+    game1.getPlayer().playerWins();
+
+    game1.getPlayer().playerBets(45);
+    game1.getPlayer().playerLoses();
+
+    game1.getPlayer().playerBets(36);
+    game1.getPlayer().playerTies();
+
+    //Verify the total bet amount for all the games
+    assertThat(game1.getPlayer().totalAmountBet()).isEqualTo(136);
+  }
+
+  @Test
   public void playerGet10AsBonusWhenHeBets100OrMore() throws Exception {
     Game game = createGameWithPlayerBalanceOf(200);
     game.getPlayer().playerBets(100);
@@ -94,7 +128,7 @@ public class GameBettingOutcomeTest {
             .isEqualTo(310);
   }
 
-  private Game createGameWithPlayerBalanceOf(int amount) {
+  private Game createGameWithPlayerBalanceOf(int amount) throws Exception {
     Game game = new Game();
     game.getPlayer().playerDeposits(amount);
     return game;
