@@ -1,20 +1,23 @@
 package com.jitterted.ebp.blackjack;
 
 public class Player {
-    private int playerBalance = 0;
-    private int playerBet = 0;
+    private double playerBalance = 0;
+    private double playerBet = 0;
     private double totalAmountBet = 0;
 
-    public void playerDeposits(int amount) {
+    public void playerDeposits(double amount) {
         if(amount <= 0){
             throw new UnsupportedOperationException("Deposit Amount should be greater than 0");
         }
         playerBalance += amount;
     }
 
-    public void playerBets(int betAmount) {
-        if(playerBalance < betAmount){
+    public void playerBets(double betAmount) {
+        if(betAmount > playerBalance){
             throw new UnsupportedOperationException("Bet Amount cannot be greater than Balance Amount");
+        }
+        if(betAmount <= 0){
+            throw new UnsupportedOperationException("Bet Amount should be greater than 0");
         }
         playerBet = betAmount;
         playerBalance -= betAmount;
@@ -24,7 +27,7 @@ public class Player {
         }
     }
 
-    public int playerBalance() {
+    public double playerBalance() {
         return playerBalance;
     }
 

@@ -1,0 +1,60 @@
+Challenge - 1: Identify Code Smells
+1. Long Method
+    a. Card#display()
+    b. Rank#rankValue()
+    c. Game#playGame()
+    d. Game#play()
+    e. Game#handleGameOutcome()
+2. Primitive Obsession
+    a.Card#hashCode()
+    b.Rank#rankValue()
+    c.Deck#size()
+    d.Suit#Symbol
+    e.Player#playerBalance
+    f.Player#playerBet
+    g.Player#totalAmountBet
+3. Feature Envy
+    a.Card#rankValue()
+    d.Game#drawCardIntoDealerHand()
+    e.Game#dealerPlays()
+    e.Game#playerDeposits()
+    f.Game#playerBets()
+    g.Game#playerBalance()
+    h.Game#playerWins()
+    i.Game#playerLoses()
+    j.Game#playerTies()
+
+Challenge - 2: Name the methods those are easily Testable in Player Class
+    a)Player#playerDeopsits()
+        Test Method#1: GameBettingOutcomeTest#playerDepositsAnAmountOfZeroShouldThrowError()
+        Test Method#2: GameBettingOutcomeTest#playerDepositsNegativeAmountShouldThrowError()
+        Test Method#3: GameBettingOutcomeTest#playerDepositsMultipleTimesBalanceShouldBeCalculatedProperly()
+    b)Player#playerBets()
+        Test Method#1: GameBettingOutcomeTest#playerBetsForAnAmountGreaterThanBalanceShouldThrowException()
+        Test Method#2: GameBettingOutcomeTest#playerBetsForZeroAmountShouldThrowException()
+        Test Method#3: GameBettingOutcomeTest#playerBetsForNegativeAmountShouldThrowException()
+        Test Method#4: GameBettingOutcomeTest#playerWith40Bets15BalanceIs25()
+        Test Method#5: GameBettingOutcomeTest#playerPlacesMultipleBetsValidBetsShouldBePlacedAndExhaustedAmountBetShouldThorwException()
+    c)Player#playerBalance()
+        Test Method#1: GameBettingOutcomeTest#playerWith40Bets15BalanceIs25()
+        Test Method#2: GameBettingOutcomeTest#playerDeposits18DollarsBalanceIs18Dollars()
+        Test Method#3: GameBettingOutcomeTest#playerWinsAndLosesMultipleGamesBalanceShouldBeCalculatedProperly()
+        Test Method#4: GameBettingOutcomeTest#playerWinsAndTiesMultipleGamesBalanceShouldBeCalculatedProperly()
+        Test Method#5: GameBettingOutcomeTest#playerLosesAndTiesMultipleGamesBalanceShouldBeCalculatedProperly()
+    d)Player#playerWins()
+        Test Method#1 : GameBettingOutcomeTest#playerWith20Bets10WhenWinsBalanceIs30()
+        Test Method#2 : GameBettingOutcomeTest#playerWinsMultipleGamesBalanceShouldBeCalculatedProperly()
+    e)Player#playerLoses()
+        Test Method#1 : GameBettingOutcomeTest#playerWith35Bets30WhenLosesBalanceIs5()
+        Test Method#2 : GameBettingOutcomeTest#playerLosesMultipleGamesBalanceShouldBeCalculatedProperly()
+    f)Player#playerTies()
+        Test Method#1 : GameBettingOutcomeTest#playerWith80Bets70WhenTiesBalanceIs80()
+        Test Method#2 : GameBettingOutcomeTest#playerTiesMultipleGamesBalanceShouldBeEqualToInitialBalance()
+
+Challenge - 3: Add and Update behaviors of Player Class
+    a)Add New Behavior - Track the total amount that the player has bet for multiple games played
+        Method: Player#totalAmountBet()
+        Test Method: GameBettingOutcomeTest#getTheTotalBetAmountForAPlayerUponForMultipleBets()
+    b)Change Existing Behavior - Player gets 10 as bonus when he bets 100 or more
+        Method: Player#playerBets()
+        Test Method: GameBettingOutcomeTest#playerGet10AsBonusWhenHeBets100OrMore()

@@ -21,6 +21,110 @@ public class GameBettingOutcomeTest {
   }
 
   @Test
+  public void playerWinsMultipleGamesBalanceShouldBeCalculatedProperly() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+
+    Game game1 = createGameWithPlayerBalanceOf(20);
+    game1.getPlayer().playerBets(10);
+
+    game.getPlayer().playerWins();
+    game1.getPlayer().playerWins();
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance())
+            .isEqualTo(60);
+  }
+
+  @Test
+  public void playerLosesMultipleGamesBalanceShouldBeCalculatedProperly() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+
+    Game game1 = createGameWithPlayerBalanceOf(20);
+    game1.getPlayer().playerBets(10);
+
+    game.getPlayer().playerLoses();
+    game1.getPlayer().playerLoses();
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance())
+            .isEqualTo(20);
+  }
+
+  @Test
+  public void playerTiesMultipleGamesBalanceShouldBeEqualToInitialBalance() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+
+    Game game1 = createGameWithPlayerBalanceOf(20);
+    game1.getPlayer().playerBets(10);
+
+    game.getPlayer().playerTies();
+    game1.getPlayer().playerTies();
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance())
+            .isEqualTo(40);
+  }
+
+  @Test
+  public void playerWinsAndLosesMultipleGamesBalanceShouldBeCalculatedProperly() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+
+    Game game1 = createGameWithPlayerBalanceOf(20);
+    game1.getPlayer().playerBets(15);
+
+    game.getPlayer().playerWins();
+    game1.getPlayer().playerLoses();
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance())
+            .isEqualTo(35);
+  }
+
+  @Test
+  public void playerWinsAndTiesMultipleGamesBalanceShouldBeCalculatedProperly() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+
+    Game game1 = createGameWithPlayerBalanceOf(20);
+    game1.getPlayer().playerBets(15);
+
+    game.getPlayer().playerWins();
+    game1.getPlayer().playerTies();
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance())
+            .isEqualTo(50);
+  }
+
+  @Test
+  public void playerLosesAndTiesMultipleGamesBalanceShouldBeCalculatedProperly() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+
+    Game game1 = createGameWithPlayerBalanceOf(20);
+    game1.getPlayer().playerBets(15);
+
+    game.getPlayer().playerLoses();
+    game1.getPlayer().playerTies();
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance())
+            .isEqualTo(30);
+  }
+
+  @Test
+  public void playerPlacesMultipleBetsValidBetsShouldBePlacedAndExhaustedAmountBetShouldThorwException() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    game.getPlayer().playerBets(10);
+    assertThatThrownBy(() -> {
+      game.getPlayer().playerBets(30);
+    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount cannot be greater than Balance Amount");
+
+    game.getPlayer().playerWins();
+
+    assertThat(game.getPlayer().playerBalance())
+            .isEqualTo(30);
+  }
+
+  @Test
   public void playerWith80Bets70WhenTiesBalanceIs80() throws Exception {
     Game game = createGameWithPlayerBalanceOf(80);
     game.getPlayer().playerBets(70);
@@ -61,7 +165,16 @@ public class GameBettingOutcomeTest {
   }
 
   @Test
-  public void playerBetsForWithAnAmountGreaterThanBalanceShouldThrowException() throws Exception {
+  public void playerDepositsMultipleTimesBalanceShouldBeCalculatedProperly() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(18);
+    Game game1 = createGameWithPlayerBalanceOf(65.365);
+    Game game2 = createGameWithPlayerBalanceOf(89.14);
+
+    assertThat(game.getPlayer().playerBalance()+game1.getPlayer().playerBalance()+game2.getPlayer().playerBalance()).isEqualTo(172.505);
+  }
+
+  @Test
+  public void playerBetsForAnAmountGreaterThanBalanceShouldThrowException() throws Exception {
     Game game = createGameWithPlayerBalanceOf(20);
     assertThatThrownBy(() -> {
       game.getPlayer().playerBets(30);
@@ -69,10 +182,34 @@ public class GameBettingOutcomeTest {
   }
 
   @Test
+  public void playerBetsForZeroAmountShouldThrowException() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    assertThatThrownBy(() -> {
+      game.getPlayer().playerBets(0);
+    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount should be greater than 0");
+  }
+
+  @Test
+  public void playerBetsForNegativeAmountShouldThrowException() throws Exception {
+    Game game = createGameWithPlayerBalanceOf(20);
+    assertThatThrownBy(() -> {
+      game.getPlayer().playerBets(-10);
+    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount should be greater than 0");
+  }
+
+  @Test
   public void playerDepositsAnAmountOfZeroShouldThrowError() throws Exception {
     Game game = new Game();
     assertThatThrownBy(() -> {
       game.getPlayer().playerDeposits(0);
+    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Deposit Amount should be greater than 0");
+  }
+
+  @Test
+  public void playerDepositsNegativeAmountShouldThrowError() throws Exception {
+    Game game = new Game();
+    assertThatThrownBy(() -> {
+      game.getPlayer().playerDeposits(-12.4);
     }).isInstanceOf(UnsupportedOperationException.class).info.equals("Deposit Amount should be greater than 0");
   }
 
@@ -128,7 +265,7 @@ public class GameBettingOutcomeTest {
             .isEqualTo(310);
   }
 
-  private Game createGameWithPlayerBalanceOf(int amount) throws Exception {
+  private Game createGameWithPlayerBalanceOf(double amount) throws Exception {
     Game game = new Game();
     game.getPlayer().playerDeposits(amount);
     return game;
