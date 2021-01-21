@@ -1,9 +1,12 @@
 package com.jitterted.ebp.blackjack;
 
+import java.text.DecimalFormat;
+
 public class Player {
     private double playerBalance = 0;
     private double playerBet = 0;
     private double totalAmountBet = 0;
+    private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public void playerDeposits(double amount) {
         if(amount <= 0){
@@ -13,6 +16,9 @@ public class Player {
     }
 
     public void playerBets(double betAmount) {
+        if(playerBalance == 0){
+            throw new UnsupportedOperationException("Wallet Balance is Zero. Please add the amount to place a bet.");
+        }
         if(betAmount > playerBalance){
             throw new UnsupportedOperationException("Bet Amount cannot be greater than Balance Amount");
         }

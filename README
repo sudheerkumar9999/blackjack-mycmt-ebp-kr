@@ -26,35 +26,86 @@ Challenge - 1: Identify Code Smells
 
 Challenge - 2: Name the methods those are easily Testable in Player Class
     a)Player#playerDeopsits()
+        //Integration Tests for Game and Player
         Test Method#1: GameBettingOutcomeTest#playerDepositsAnAmountOfZeroShouldThrowError()
         Test Method#2: GameBettingOutcomeTest#playerDepositsNegativeAmountShouldThrowError()
         Test Method#3: GameBettingOutcomeTest#playerDepositsMultipleTimesBalanceShouldBeCalculatedProperly()
+
+        //Unit Tests for Player Class
+        Test Method#4: PlayerTest#playerDeposits15BalanceShouldBe15()
+        Test Method#5: PlayerTest#playerDepositsInvalidAmountExceptionShouldBeThrownAndBalanceShouldBeZero()
+        Test Method#6: PlayerTest#playerDepositsMultipleTimesBalanceShouldBeUpdatedProperly()
+
     b)Player#playerBets()
+        //Integration Tests for Game and Player
         Test Method#1: GameBettingOutcomeTest#playerBetsForAnAmountGreaterThanBalanceShouldThrowException()
         Test Method#2: GameBettingOutcomeTest#playerBetsForZeroAmountShouldThrowException()
         Test Method#3: GameBettingOutcomeTest#playerBetsForNegativeAmountShouldThrowException()
         Test Method#4: GameBettingOutcomeTest#playerWith40Bets15BalanceIs25()
         Test Method#5: GameBettingOutcomeTest#playerPlacesMultipleBetsValidBetsShouldBePlacedAndExhaustedAmountBetShouldThorwException()
+
+        //Unit Tests for Player Class
+        Test Method#6: PlayerTest#playerBetsForAnAmountWithoutDeposit()
+        Test Method#7: PlayerTest#playerBetsForAnAmountGreaterThanWalletAmount()
+        Test Method#8: PlayerTest#playerBetsForAnAmountLessThanWalletAmountBalanceShouldBeUpdatedProperly()
+        Test Method#9: PlayerTest#playerPlacesMultipleBetsWithDifferentAmountsWalletBalanceShouldBeUpdatedProperly()
+        Test Method#10: PlayerTest#playerBetsForAnInvalidAmountExceptionShouldBeThrownAndBalanceShouldBeEqualToDepositAmount()
+
     c)Player#playerBalance()
+        //Integration Tests for Game and Player
         Test Method#1: GameBettingOutcomeTest#playerWith40Bets15BalanceIs25()
         Test Method#2: GameBettingOutcomeTest#playerDeposits18DollarsBalanceIs18Dollars()
         Test Method#3: GameBettingOutcomeTest#playerWinsAndLosesMultipleGamesBalanceShouldBeCalculatedProperly()
         Test Method#4: GameBettingOutcomeTest#playerWinsAndTiesMultipleGamesBalanceShouldBeCalculatedProperly()
         Test Method#5: GameBettingOutcomeTest#playerLosesAndTiesMultipleGamesBalanceShouldBeCalculatedProperly()
+
+        //Unit Tests for Player Class
+        Test Method#6: PlayerTest#playerBetsForAnAmountLessThanWalletAmountBalanceShouldBeUpdatedProperly()
+        Test Method#7: PlayerTest#playerPlacesMultipleBetsWithDifferentAmountsWalletBalanceShouldBeUpdatedProperly()
+        Test Method#8: PlayerTest#playerDeposits15BalanceShouldBe15()
+        Test Method#9: PlayerTest#playerDepositsMultipleTimesBalanceShouldBeUpdatedProperly()
+
     d)Player#playerWins()
-        Test Method#1 : GameBettingOutcomeTest#playerWith20Bets10WhenWinsBalanceIs30()
-        Test Method#2 : GameBettingOutcomeTest#playerWinsMultipleGamesBalanceShouldBeCalculatedProperly()
+        //Integration Tests for Game and Player
+        Test Method#1: GameBettingOutcomeTest#playerWith20Bets10WhenWinsBalanceIs30()
+        Test Method#2: GameBettingOutcomeTest#playerWinsMultipleGamesBalanceShouldBeCalculatedProperly()
+
+        //Unit Test for Player Class
+        Test Method#3: PlayerTest#playerPlacesBetAndWinsBalanceShouldBeIncreased()
+
     e)Player#playerLoses()
-        Test Method#1 : GameBettingOutcomeTest#playerWith35Bets30WhenLosesBalanceIs5()
-        Test Method#2 : GameBettingOutcomeTest#playerLosesMultipleGamesBalanceShouldBeCalculatedProperly()
+        //Integration Tests for Game and Player
+        Test Method#1: GameBettingOutcomeTest#playerWith35Bets30WhenLosesBalanceIs5()
+        Test Method#2: GameBettingOutcomeTest#playerLosesMultipleGamesBalanceShouldBeCalculatedProperly()
+
+        //Unit Test for Player Class
+        Test Method#3: PlayerTest#playerPlacesBetAndLosesBalanceShouldBeDecreased()
+
     f)Player#playerTies()
-        Test Method#1 : GameBettingOutcomeTest#playerWith80Bets70WhenTiesBalanceIs80()
-        Test Method#2 : GameBettingOutcomeTest#playerTiesMultipleGamesBalanceShouldBeEqualToInitialBalance()
+        //Integration Tests for Game and Player
+        Test Method#1: GameBettingOutcomeTest#playerWith80Bets70WhenTiesBalanceIs80()
+        Test Method#2: GameBettingOutcomeTest#playerTiesMultipleGamesBalanceShouldBeEqualToInitialBalance()
+
+        //Unit Test for Player Class
+        Test Method#3: PlayerTest#playerPlacesBetAndTiesBalanceShouldBeEqualToInitialBalance()
 
 Challenge - 3: Add and Update behaviors of Player Class
     a)Add New Behavior - Track the total amount that the player has bet for multiple games played
+        //Business Logic Method
         Method: Player#totalAmountBet()
-        Test Method: GameBettingOutcomeTest#getTheTotalBetAmountForAPlayerUponForMultipleBets()
+
+        //Integration Test Method for Game and Player
+        Test Method#1: GameBettingOutcomeTest#getTheTotalBetAmountForAPlayerUponForMultipleBets()
+
+        //Unit Test Method for Player Class
+        Test Method#2: PlayerTest#getTheTotalBetAmountForAPlayerUponForMultipleBets()
+
     b)Change Existing Behavior - Player gets 10 as bonus when he bets 100 or more
+        //Business Logic Method
         Method: Player#playerBets()
-        Test Method: GameBettingOutcomeTest#playerGet10AsBonusWhenHeBets100OrMore()
+
+        //Integration Test Method for Game and Player
+        Test Method#1: GameBettingOutcomeTest#playerGet10AsBonusWhenHeBets100OrMore()
+
+        //Unit Test Method for Player Class
+        Test Method#2: PlayerTest#playerGet10AsBonusWhenHeBets100OrMore()

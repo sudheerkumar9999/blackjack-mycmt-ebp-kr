@@ -116,7 +116,7 @@ public class GameBettingOutcomeTest {
     game.getPlayer().playerBets(10);
     assertThatThrownBy(() -> {
       game.getPlayer().playerBets(30);
-    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount cannot be greater than Balance Amount");
+    }).isInstanceOf(UnsupportedOperationException.class).hasMessage("Bet Amount cannot be greater than Balance Amount");
 
     game.getPlayer().playerWins();
 
@@ -178,7 +178,7 @@ public class GameBettingOutcomeTest {
     Game game = createGameWithPlayerBalanceOf(20);
     assertThatThrownBy(() -> {
       game.getPlayer().playerBets(30);
-    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount cannot be greater than Balance Amount");
+    }).isInstanceOf(UnsupportedOperationException.class).hasMessage("Bet Amount cannot be greater than Balance Amount");
   }
 
   @Test
@@ -186,7 +186,7 @@ public class GameBettingOutcomeTest {
     Game game = createGameWithPlayerBalanceOf(20);
     assertThatThrownBy(() -> {
       game.getPlayer().playerBets(0);
-    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount should be greater than 0");
+    }).isInstanceOf(UnsupportedOperationException.class).hasMessage("Bet Amount should be greater than 0");
   }
 
   @Test
@@ -194,7 +194,7 @@ public class GameBettingOutcomeTest {
     Game game = createGameWithPlayerBalanceOf(20);
     assertThatThrownBy(() -> {
       game.getPlayer().playerBets(-10);
-    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Bet Amount should be greater than 0");
+    }).isInstanceOf(UnsupportedOperationException.class).hasMessage("Bet Amount should be greater than 0");
   }
 
   @Test
@@ -202,7 +202,7 @@ public class GameBettingOutcomeTest {
     Game game = new Game();
     assertThatThrownBy(() -> {
       game.getPlayer().playerDeposits(0);
-    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Deposit Amount should be greater than 0");
+    }).isInstanceOf(UnsupportedOperationException.class).hasMessage("Deposit Amount should be greater than 0");
   }
 
   @Test
@@ -210,7 +210,7 @@ public class GameBettingOutcomeTest {
     Game game = new Game();
     assertThatThrownBy(() -> {
       game.getPlayer().playerDeposits(-12.4);
-    }).isInstanceOf(UnsupportedOperationException.class).info.equals("Deposit Amount should be greater than 0");
+    }).isInstanceOf(UnsupportedOperationException.class).hasMessage("Deposit Amount should be greater than 0");
   }
 
   @Test
